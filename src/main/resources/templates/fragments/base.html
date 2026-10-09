@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CursoMania | Aprende. Crece. Domina.</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<nav class="navbar" th:fragment="menu">
+    <div>
+        <span class="marca">🚀 CursoMania</span>
+        <span> | Aprende. Crece. Domina.</span>
+    </div>
+    <div>
+        <a th:href="@{/cursos}">Cursos</a>
+        <a th:href="@{/cursos/nuevo}">Nuevo curso</a>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-salir">Salir</button>
+        </form>
+    </div>
+</nav>
+</body>
+</html>

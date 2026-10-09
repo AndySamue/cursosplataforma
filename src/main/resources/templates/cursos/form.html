@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: head}"></head>
+<body>
+<nav th:replace="~{fragments/base :: menu}"></nav>
+
+<div class="contenedor">
+    <h1 th:text="${curso.id == null} ? 'Nuevo curso' : 'Editar curso'">Curso</h1>
+
+    <form th:action="@{/cursos/guardar}" th:object="${curso}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="campo">
+            <label for="titulo">Título</label>
+            <input type="text" th:field="*{titulo}" placeholder="Título">
+            <span class="error" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}">Error</span>
+        </div>
+
+        <div class="campo">
+            <label for="descripcion">Descripción</label>
+            <input type="text" th:field="*{descripcion}" placeholder="Descripción">
+            <span class="error" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Error</span>
+        </div>
+
+        <div class="campo">
+            <label for="cupo">Cupo</label>
+            <input type="number" th:field="*{cupo}" placeholder="0">
+            <span class="error" th:if="${#fields.hasErrors('cupo')}" th:errors="*{cupo}">Error</span>
+        </div>
+
+        <div class="campo">
+            <label for="precio">Precio</label>
+            <input type="number" step="0.01" th:field="*{precio}" placeholder="0.00">
+            <span class="error" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">Error</span>
+        </div>
+
+        <div class="campo">
+            <label>Docente
+                <select th:field="*{docente.id}">
+                    <option value="">-- Selecciona un docente --</option>
+                    <option th:each="d : ${docentes}" th:value="${d.id}" th:text="${d.nombre}">Docente</option>
+                </select>
+            </label>
+            <span class="error" th:if="${#fields.hasErrors('docente')}" th:errors="*{docente}">Error</span>
+        </div>
+
+        <button type="submit" class="btn">Guardar</button>
+        <a th:href="@{/cursos}" class="btn btn-gris">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

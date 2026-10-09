@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: head}"></head>
+<body>
+<nav th:replace="~{fragments/base :: menu}"></nav>
+
+<div class="contenedor">
+    <h1>Catálogo de cursos</h1>
+    <a th:href="@{/cursos/nuevo}" class="btn">+ Nuevo curso</a>
+
+    <p class="aviso" th:if="${#lists.isEmpty(cursos)}">No hay cursos registrados todavía.</p>
+
+    <table th:unless="${#lists.isEmpty(cursos)}">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Docente</th>
+                <th>Cupo</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="c : ${cursos}">
+                <td th:text="${c.id}">1</td>
+                <td th:text="${c.titulo}">Título</td>
+                <td th:text="${c.docente.nombre}">Docente</td>
+                <td th:text="${c.cupo}">30</td>
+                <td th:text="'$' + ${c.precio}">$0.00</td>
+                <td>
+                    <a th:href="@{/cursos/editar/{id}(id=${c.id})}" class="btn btn-gris">Editar</a>
+                    <form th:action="@{/cursos/eliminar/{id}(id=${c.id})}" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-peligro">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
